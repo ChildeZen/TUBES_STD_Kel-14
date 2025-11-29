@@ -24,7 +24,6 @@ struct ListBerita {
 
 void createListBerita(ListBerita &B);
 adrBerita allocateBerita(infotypeBerita x);
-void deallocateBerita(adrBerita &B);
 void insertFirstBerita(ListBerita &B, adrBerita b);
 void insertLastBerita(ListBerita &B, adrBerita b);
 void deleteFirstBerita(ListBerita &B, adrBerita &b);
