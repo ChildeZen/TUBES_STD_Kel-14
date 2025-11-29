@@ -25,7 +25,6 @@ struct ListJurnalis {
 
 void createListJurnalis(ListJurnalis &J);
 adrJurnalis allocateJurnalis(infotypeJurnalis x);
-void deallocateJurnalis(adrJurnalis &p);
 void insertFirstJurnalis(ListJurnalis &J, adrJurnalis p);
 void insertLastJurnalis(ListJurnalis &J, adrJurnalis p);
 void insertAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis p);
