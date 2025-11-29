@@ -32,6 +32,6 @@ void deleteFirstJurnalis(ListJurnalis &J, adrJurnalis &p);
 void deleteLastJurnalis(ListJurnalis &J, adrJurnalis &p);
 void deleteAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis &p);
 adrJurnalis findJurnalis(ListJurnalis J, string idJurnalis);
-void showAllJurnalis(ListJurnalis Lj);
+void showAllJurnalis(ListJurnalis J);
 
 #endif //JURNALIS_H_INCLUDED
