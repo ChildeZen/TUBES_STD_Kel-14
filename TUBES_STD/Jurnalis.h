@@ -5,7 +5,7 @@
 using namespace std;
 
 struct Jurnalis {
-    string idJurnalis;
+    int idJurnalis;
     string nama;
     string bidang;
     string status;
@@ -18,6 +18,7 @@ struct elmJurnalis {
     infotypeJurnalis info;
     adrJurnalis next;
     adrJurnalis prev;
+    adrRelasi nextRelasi;
 };
 
 struct ListJurnalis {

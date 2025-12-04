@@ -6,7 +6,6 @@
 typedef struct elmRelasi *adrRelasi;
 
 struct elmRelasi {
-    adrJurnalis jurnalis; 
     adrBerita berita; 
     adrRelasi next;
 };
@@ -15,4 +14,6 @@ struct ListRelasi {
     adrRelasi first;
 };
 
+next = NULL
+berita = find
 #endif
