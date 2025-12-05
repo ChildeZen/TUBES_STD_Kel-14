@@ -1,8 +1,8 @@
 #include "Jurnalis.h"
 
 void createJurnalis(ListJurnalis &J) {
-    J.first = NULL;
-    J.last = NULL;
+    J.first = nullptr;
+    J.last = nullptr;
 }
 
 adrJurnalis allocateJurnalis(infotypeJurnalis x) {
@@ -11,14 +11,14 @@ adrJurnalis allocateJurnalis(infotypeJurnalis x) {
     P->info.idJurnalis = x.idJurnalis;
     P->info.bidang = x.bidang;
     P->info.status = x.status;
-    P->next = NULL;
-    P->prev = NULL;
+    P->next = nullptr;
+    P->prev = nullptr;
 
     return P;
 }
 
 void insertFirstJurnalis(ListJurnalis &J, adrJurnalis p) {
-    if (J.first == NULL) {
+    if (J.first == nullptr) {
         J.first = p;
         J.last = p;
     } else {
@@ -29,7 +29,7 @@ void insertFirstJurnalis(ListJurnalis &J, adrJurnalis p) {
 }
 
 void insertLastJurnalis(ListJurnalis &J, adrJurnalis p) {
-    if (J.first == NULL) {
+    if (J.first == nullptr) {
         J.first = p;
         J.last = p;
     } else {
@@ -40,70 +40,72 @@ void insertLastJurnalis(ListJurnalis &J, adrJurnalis p) {
 }
 
 void deleteAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis &p) {
-    if (J.first == NULL) {
+    if (J.first == nullptr ) {
         cout << "List kosong" << endl;
-    } else if (prec == NULL || prec->next == NULL) {
-        cout << "Tidak ada elemen setelah prec" << endl;
+    } else if (J.last == J.first) {
+        p = J.first;
+        J.first = nullptr;
+        J.last = nullptr;
     } else {
         p = prec->next;
         prec->next = p->next;
-        if (p->next != NULL) {
+        if (p->next != nullptr) {
             p->next->prev = prec;
         } else {
             J.last = prec;
         }
-        p->prev = NULL;
-        p->next = NULL;
+        p->prev = nullptr;
+        p->next = nullptr;
     }
 }
 
 adrJurnalis findJurnalisByid(ListJurnalis J, int idJurnalis) {
     adrJurnalis x = J.first;
-    while (x != NULL) {
+    while (x != nullptr) {
         if (x->info.idJurnalis == idJurnalis) {
             return x;
         }
         x = x->next;
     }
-    return NULL;
+    return nullptr;
 }
 
 adrJurnalis findJurnalisByName(ListJurnalis J, string name) {
     adrJurnalis x = J.first;
-    while (x != NULL) {
+    while (x != nullptr) {
         if (x->info.nama == name) {
             return x;
         }
         x = x->next;
     }
-    return NULL;
+    return nullptr;
 }
 
 adrJurnalis findJurnalisByBidang(ListJurnalis J, string bidang) {
     adrJurnalis x = J.first;
-    while (x != NULL) {
+    while (x != nullptr) {
         if (x->info.bidang == bidang) {
             return x;
         }
         x = x->next;
     }
-    return NULL;
+    return nullptr;
 }
 
 adrJurnalis findJurnalisByStatus(ListJurnalis J, string status) {
     adrJurnalis x = J.first;
-    while (x != NULL) {
+    while (x != nullptr) {
         if (x->info.status == status) {
             return x;
         }
         x = x->next;
     }
-    return NULL;
+    return nullptr;
 }
 
 void showAllJurnalis(ListJurnalis J) {
     adrJurnalis p = J.first;
-    if (J.first == NULL) {
+    if (J.first == nullptr) {
         cout << "List Jurnalis Kosong!" << endl;
         return;
     }
@@ -112,7 +114,7 @@ void showAllJurnalis(ListJurnalis J) {
     cout << "-------------------------------------" << endl;
 
     int nomor = 1;
-    while (p != NULL) {
+    while (p != nullptr) {
         cout << "Jurnalis ke-" << nomor << endl;
         cout << "ID Jurnalis : " << p->info.idJurnalis << endl;
         cout << "Nama        : " << p->info.nama << endl;
