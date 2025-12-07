@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1765070472 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis_103032400031.cpp
+	"Jurnalis.h"
+
+1765072025 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis.h
+	<iostream>
+	<string>
+	"jurnalis.h"
+	"berita.h"
+
+1765072170 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita.h
+	<iostream>
+	<string>
+

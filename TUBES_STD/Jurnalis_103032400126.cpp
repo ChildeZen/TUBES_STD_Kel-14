@@ -1,3 +1,4 @@
+
 #include "Jurnalis.h"
 
 void insertAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis p){

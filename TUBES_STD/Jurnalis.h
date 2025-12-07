@@ -3,6 +3,23 @@
 #include <iostream>
 #include <string>
 using namespace std;
+#include "jurnalis.h"
+#include "berita.h"
+
+//Relasi.h yang dipindah ke parent.h//
+
+typedef struct elmRelasi *adrRelasi;
+
+struct elmRelasi {
+    adrBerita berita;
+    adrRelasi next;
+};
+
+struct ListRelasi {
+    adrRelasi first;
+};
+
+//parent.h atau jurnalis.h
 
 struct Jurnalis {
     int idJurnalis;

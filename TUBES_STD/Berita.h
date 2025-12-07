@@ -6,7 +6,7 @@ using namespace std;
 
 struct Berita {
     string judulBerita;
-    string isiBerita;
+    string temaBerita;
     string tanggal;
 };
 
@@ -26,7 +26,7 @@ void createListBerita(ListBerita &B);
 adrBerita allocateBerita(infotypeBerita x);
 void insertFirstBerita(ListBerita &B, adrBerita b);
 void insertLastBerita(ListBerita &B, adrBerita b);
-void insertafterBerita(ListBerita &B, adrBerita prec, adrBerita &b)
+void insertafterBerita(ListBerita &B, adrBerita prec, adrBerita &b);
 void deleteFirstBerita(ListBerita &B, adrBerita &b);
 void deleteLastBerita(ListBerita &B, adrBerita &b);
 void deleteAfterBerita(ListBerita &B, adrBerita prec, adrBerita &b);
