@@ -10,12 +10,36 @@ void insertafterBerita (ListBerita &B, adrBerita prec, adrBerita &b){
     }
 }
 
-void deleteAfterBerita(ListBerita &B, adrBerita prec, adrBerita &b){
+void deleteAfterBerita(ListBerita &B, adrBerita prec, adrBerita b){
     if (B.first == nullptr){
         cout << "list sudah kosong";
-    }else if (B.first == B.last) {
-        B.first = b;
-        B.first = nullptr;
-        B.last = nullptr
-    }
+    }else if (B.first->next->next == nullptr) {
+        b = prec->next;
+        prec->next = nullptr;
+    } else {
+        b = prec->next;
+        prec->next = b->next;
+        b->next = nullptr;
+        }
 }
+
+void deleteLastBerita(ListBerita &B, adrBerita &b){
+    adrBerita q;
+
+    if(B.first == nullptr){
+        cout << "list kosong";
+        b = nullptr;
+    } else if (B.first->next == nullptr) {
+        b = B.first;
+        B.first = nullptr;
+    } else {
+        q = B.first;
+        while(q->next->next != nullptr) {
+            q = q->next;
+        }
+        b = q->next;
+        q->next = nullptr;
+    }
+
+}
+

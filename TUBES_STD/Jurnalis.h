@@ -4,20 +4,9 @@
 #include <string>
 using namespace std;
 #include "jurnalis.h"
-#include "berita.h"
+#include "relation.h"
 
-//Relasi.h yang dipindah ke parent.h//
 
-typedef struct elmRelasi *adrRelasi;
-
-struct elmRelasi {
-    adrBerita berita;
-    adrRelasi next;
-};
-
-struct ListRelasi {
-    adrRelasi first;
-};
 
 //parent.h atau jurnalis.h
 
@@ -35,7 +24,7 @@ struct elmJurnalis {
     infotypeJurnalis info;
     adrJurnalis next;
     adrJurnalis prev;
-    adrRelasi nextRelasi;
+    ListRelasi Berita;
 };
 
 struct ListJurnalis {

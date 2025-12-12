@@ -10,7 +10,7 @@ void insertAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis p){
         p->next = prec->next;
         p->prev = prec;
         prec->next = p;
-        p->next->prev = prev;
+        p->next->prev = p;
     }
 }
 
