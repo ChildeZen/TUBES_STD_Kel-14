@@ -1,3 +1,6 @@
+#include "Berita.h"
+#include "Jurnalis.h"
+
 void insertFirst(ListRelasi &L, adrRelasi P){
     P->next = L.first;
     L.first = P;
@@ -16,7 +19,7 @@ void insertLast(ListRelasi &L, adrRelasi P){
     }
 }
 
-void insertAfter(ListRelasi &L, adrRelasi Prec, adrRelasi P){
+void insertAfter(adrRelasi Prec, adrRelasi P){
     if (Prec != nullptr){
         P->next = Prec->next;
         Prec->next = P;
@@ -52,8 +55,8 @@ void deleteLast(ListRelasi &L, adrRelasi &P){
     }
 }
 
-void deleteAfter(ListRelasi Prec, adrRelasi &P){
-    if (Prec != nullptr && Prec->next != nullptr){
+void deleteAfter(adrRelasi &Prec, adrRelasi &P){
+    if (Prec != nullptr && Prec->next != nullptr) {
         P = Prec->next;
         Prec->next = P->next;
         P->next = nullptr;
@@ -76,7 +79,7 @@ void showJurnalisWithBerita_103032400031(ListJurnalis J){
         } else {
             while (r != nullptr){
                 cout << "  Judul Berita: "
-                     << r->info->info.judul << endl;
+                     << r->info->info.judulBerita << endl;
                 r = r->next;
             }
         }
@@ -84,16 +87,6 @@ void showJurnalisWithBerita_103032400031(ListJurnalis J){
         cout << endl;
         p = p->next;
     }
-}
-
-
-void showJurnalisByJudulBerita(ListJurnalis J, ListBerita B, string judul){
-    adrBerita target = findBerita(B, judul);
-    if (target == nullptr){
-        cout << "Berita tidak ditemukan" << endl;
-        return;
-    }
-    showJurnalisByBerita(J, target);
 }
 
 
@@ -122,6 +115,15 @@ void showJurnalisByBerita(ListJurnalis J, adrBerita target){
     }
 }
 
+
+void showJurnalisByJudulBerita(ListJurnalis J, ListBerita B, string judul){
+    adrBerita target = findBerita(B, judul);
+    if (target == nullptr){
+        cout << "Berita tidak ditemukan" << endl;
+        return;
+    }
+    showJurnalisByBerita(J, target);
+}
 
 int countJurnalisByBerita(ListJurnalis J, adrBerita target){
     int count = 0;
@@ -154,4 +156,7 @@ void editRelasiBerita(adrJurnalis p, adrBerita lama, adrBerita baru){
     }
     cout << "Relasi tidak ditemukan." << endl;
 }
+
+
+
 

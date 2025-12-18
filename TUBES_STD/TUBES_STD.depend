@@ -1,14 +1,13 @@
 # depslib dependency file v1.0
-1765070472 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis_103032400031.cpp
+1765990999 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis_103032400031.cpp
 	"Jurnalis.h"
 
-1765509545 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis.h
+1766026699 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis.h
 	<iostream>
 	<string>
-	"jurnalis.h"
 	"Berita.h"
 
-1765508682 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita.h
+1766023731 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita.h
 	<iostream>
 	<string>
 
@@ -16,18 +15,37 @@
 	"berita.h"
 	<iostream>
 
-1765504537 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita_103032400031.cpp
+1765990628 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita_103032400031.cpp
 	"Berita.h"
 	<iostream>
 
-1765505372 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita_103032400126.cpp
+1765990628 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\berita_103032400126.cpp
 	<iostream>
 	"Berita.h"
 
-1765504610 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis_103032400126.cpp
+1765991378 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\jurnalis_103032400126.cpp
 	"Jurnalis.h"
 
-1765509415 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\relation.cpp
+1765983379 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\relation.cpp
 	"Jurnalis.h"
 	<iostream>
+
+1765988789 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\main.cpp
+	<iostream>
+	"main.h"
+	"Jurnalis.h"
+
+1766023012 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\relation_103032400031.cpp
+	"Berita.h"
+	"Jurnalis.h"
+
+1766026699 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\relation_103032400126.cpp
+	"Jurnalis.h"
+	"Berita.h"
+	<iostream>
+
+1765985525 c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\main.h
+	<iostream>
+
+1765987152 source:c:\penyimpanan utama\data\telkom university\semester 3\struktur data\tubes\tugas besar kelompok 13\tugas-besar-it4803-kelompok-14\tubes_std\mainadmin.cpp
 

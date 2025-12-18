@@ -46,7 +46,7 @@ void deleteFirstBerita(ListBerita &B, adrBerita &b){
 //F.S
     if (B.first == nullptr){
         b = nullptr;
-    } else if (B.first->next->next == nullptr) {
+    } else if (B.first->next== nullptr) {
         b = B.first;
         B.first = nullptr;
     } else {
@@ -73,7 +73,7 @@ void showAllBerita(ListBerita B){
 
 
 
-    cout << "\n========== DAFTAR JURNALIS ==========" << endl;
+    cout << "\n========== DAFTAR BERITA ==========" << endl;
     cout << "-------------------------------------" << endl;
     Q = B.first;
     while(Q != nullptr){

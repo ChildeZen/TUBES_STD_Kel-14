@@ -1,6 +1,6 @@
 #include "Jurnalis.h"
 
-void createJurnalis(ListJurnalis &J) {
+void createListJurnalis(ListJurnalis &J) {
     J.first = nullptr;
     J.last = nullptr;
 }
@@ -13,6 +13,8 @@ adrJurnalis allocateJurnalis(infotypeJurnalis x) {
     P->info.status = x.status;
     P->next = nullptr;
     P->prev = nullptr;
+
+    createList(P->Berita);
 
     return P;
 }
@@ -59,7 +61,7 @@ void deleteAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis &p) {
     }
 }
 
-adrJurnalis findJurnalisByid(ListJurnalis J, int idJurnalis) {
+adrJurnalis findJurnalisByid(ListJurnalis J, string idJurnalis) {
     adrJurnalis x = J.first;
     while (x != nullptr) {
         if (x->info.idJurnalis == idJurnalis) {

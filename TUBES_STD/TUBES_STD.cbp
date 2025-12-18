@@ -40,8 +40,10 @@
 		<Unit filename="Jurnalis_103032400126.cpp" />
 		<Unit filename="Relation_103032400031.cpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="relation.cpp" />
+		<Unit filename="main.h" />
+		<Unit filename="mainAdmin.cpp" />
 		<Unit filename="relation.h" />
+		<Unit filename="relation_103032400126.cpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

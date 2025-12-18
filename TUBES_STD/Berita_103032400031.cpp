@@ -1,7 +1,7 @@
 #include "Berita.h"
 #include <iostream>
 
-void insertafterBerita (ListBerita &B, adrBerita prec, adrBerita &b){
+void insertAfterBerita(ListBerita &B, adrBerita prec, adrBerita &b){
     if (B.first == nullptr){
         insertFirstBerita(B, b);
     }else {
@@ -10,9 +10,10 @@ void insertafterBerita (ListBerita &B, adrBerita prec, adrBerita &b){
     }
 }
 
-void deleteAfterBerita(ListBerita &B, adrBerita prec, adrBerita b){
-    if (B.first == nullptr){
+void deleteAfterBerita(ListBerita &B, adrBerita prec, adrBerita &b){
+    if (B.first == nullptr || prec->next == nullptr){
         cout << "list sudah kosong";
+        b = nullptr;
     }else if (B.first->next->next == nullptr) {
         b = prec->next;
         prec->next = nullptr;

@@ -38,10 +38,10 @@ void deleteLastJurnalis(ListJurnalis &J, adrJurnalis &p) {
         J.first = nullptr;
         J.last = nullptr;
     } else {
-        p = J.first;
-        J.first = p->next;
-        p->next = nullptr;
-        J.first->prev == nullptr;
+        p = J.last;
+        J.last = p->prev;
+        p->prev = nullptr;
+        J.last->next = nullptr;
 
     }
 }
