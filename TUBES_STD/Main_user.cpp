@@ -13,16 +13,17 @@ void menuUser(ListJurnalis &LJ, ListBerita &LB) {
     while (option != 0) {
         system("cls");
         cout << "============= MENU USER =============\n";
-        cout << "|| 1. Lihat berita dari jurnalis    ||\n";
-        cout << "|| 2. Lihat semua jurnalis + berita ||\n";
-        cout << "|| 3. Lihat semua berita + jurnalis ||\n";
-        cout << "|| 4. Lihat jurnalis dari berita    ||\n";
-        cout << "|| 5. Hitung berita tiap jurnalis   ||\n";
-        cout << "|| 6. Hitung jurnalis dari berita   ||\n";
-        cout << "|| 7. Hitung berita tanpa jurnalis  ||\n";
-        cout << "|| 8. Edit relasi berita            ||\n";
-        cout << "|| 9. Connect                       ||\n";
-        cout << "|| 0. Keluar                        ||\n";
+        cout << "||  1. Lihat berita dari jurnalis    ||\n";
+        cout << "||  2. Lihat semua jurnalis + berita ||\n";
+        cout << "||  3. Lihat semua berita + jurnalis ||\n";
+        cout << "||  4. Lihat jurnalis dari berita    ||\n";
+        cout << "||  5. Hitung berita tiap jurnalis   ||\n";
+        cout << "||  6. Hitung jurnalis dari berita   ||\n";
+        cout << "||  7. Hitung berita tanpa jurnalis  ||\n";
+        cout << "||  8. Edit relasi berita            ||\n";
+        cout << "||  9. Delete Berita dan Relasinya   ||\n";
+        cout << "|| 10. Delete Jurnalis dan Relasinya ||\n";
+        cout << "||  0. Keluar                        ||\n";
         cout << "=====================================\n";
         cout << "Choose your option: ";
         cin >> option;
@@ -99,37 +100,72 @@ void menuUser(ListJurnalis &LJ, ListBerita &LB) {
             break;
 
         // 8. Edit relasi berita
-        case 8: {
-            string judulLama, judulBaru;
-
-            cout << "Nama Jurnalis: ";
-            cin >> namaJurnalis;
-            cout << "Judul Berita Lama: ";
-            cin >> judulLama;
-            cout << "Judul Berita Baru: ";
-            cin >> judulBaru;
-
-            PJ = findJurnalisByName(LJ, namaJurnalis);
-            adrBerita lama = findBerita(LB, judulLama);
-            adrBerita baru = findBerita(LB, judulBaru);
-
-            if (PJ != nullptr && lama != nullptr && baru != nullptr) {
-                editRelasiBerita(PJ, lama, baru);
-            } else {
-                cout << "Data tidak valid\n";
+       case 8: {
+           string namaJurnalis, judulLamaStr, judulBaruStr;
+           adrJurnalis pJ;
+           adrBerita pLama;
+           adrBerita pBaru;
+           cout << "--- Edit Relasi Berita ---" << endl;
+           cout << "Masukan nama Jurnalis: ";
+           cin >> namaJurnalis;
+            pJ = findJurnalisByName(LJ, namaJurnalis);
+            if (pJ == nullptr) {
+                cout << "Error: Jurnalis tidak ditemukan!" << endl;
             }
 
+            cout << "Masukan Judul Berita LAMA (yang mau diganti): ";
+            cin >> judulLamaStr;
+            pLama = findBerita(LB, judulLamaStr);
+            if (pLama == nullptr) {
+                cout << "Error: Berita lama tidak ditemukan!" << endl;
+            }
+
+            cout << "Masukan Judul Berita BARU: ";
+            cin >> judulBaruStr;
+            pBaru = findBerita(LB, judulBaruStr);
+
+            if (pBaru != nullptr) {
+                cout << "Info: Berita dengan judul tersebut sudah ada." << endl;
+                cout << "Menghubungkan ke berita yang sudah ada..." << endl;
+            } else {
+                cout << "Judul Berita belum ada di List" << endl;
+            }
+            if (pJ != nullptr && pLama != nullptr && pBaru != nullptr) {
+                editRelasiBerita(pJ, pLama, pBaru);
+            } else {
+                cout << "Terjadi kesalahan data." << endl;
+            }
             system("pause");
             break;
         }
-        case 9 :{
-            cout << "masukan nama jurnalis";
-            cin >> namaJurnalis;
-            cout << "masukan judul berita";
-            cin >> judulBerita;
-            connectJurnalisBerita(LJ, LB, namaJurnalis, judulBerita);
+
+        case 9 : {
+            string cariJudul;
+
+            cout << "Masukkan Judul Berita yang akan dihapus: ";
+            cin >> cariJudul;
+
+            deleteBeritaRelasi(LB, LJ, cariJudul);
+            system("pause");
+            break;
+
         }
+        case 10: {
+            string namaHapus;
+
+            cout << "Menghapus Jurnalis akan menghapus relasinya juga!!!" << endl;
+            cout << "Masukkan nama jurnalis yang akan dihapus: ";
+            cin >> namaHapus;
+
+            deleteJurnalisLengkap(LJ, namaHapus);
+
+            system("pause");
+            break;
+
+        }
+
 
         }
     }
 }
+

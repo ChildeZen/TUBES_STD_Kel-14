@@ -65,6 +65,8 @@ void deleteAfter(adrRelasi &Prec, adrRelasi &P){
     }
 }
 
+//sudah//
+//show setiap data parent beserta dat child//
 void showJurnalisWithBerita(ListJurnalis J){
     adrRelasi r;
     adrJurnalis p = J.first;
@@ -89,7 +91,7 @@ void showJurnalisWithBerita(ListJurnalis J){
     }
 }
 
-
+//sudah//
 void showJurnalisByBerita(ListJurnalis J, adrBerita target){
     adrJurnalis p = J.first;
     bool found = false;
@@ -101,7 +103,6 @@ void showJurnalisByBerita(ListJurnalis J, adrBerita target){
                 cout << "Jurnalis:" << endl;
                 cout << "ID     : " << p->info.idJurnalis << endl;
                 cout << "Nama   : " << p->info.nama << endl;
-                cout << "Bidang : " << p->info.bidang << endl;
                 found = true;
                 break;
             }
@@ -115,7 +116,7 @@ void showJurnalisByBerita(ListJurnalis J, adrBerita target){
     }
 }
 
-
+//show data parent yang berelasi dengan child tertentu//
 void showJurnalisByJudulBerita(ListJurnalis J, ListBerita B, string judul){
     adrBerita target = findBerita(B, judul);
     if (target == nullptr){
@@ -125,6 +126,7 @@ void showJurnalisByJudulBerita(ListJurnalis J, ListBerita B, string judul){
     showJurnalisByBerita(J, target);
 }
 
+//sudah//
 int countJurnalisByBerita(ListJurnalis J, adrBerita target){
     int count = 0;
     adrJurnalis p = J.first;
@@ -143,28 +145,30 @@ int countJurnalisByBerita(ListJurnalis J, adrBerita target){
     return count;
 }
 
+//sudah//
+void editRelasiBerita(adrJurnalis pJ, adrBerita pLama, adrBerita pBaru) {
+    adrRelasi cek = pJ->Berita.first;
+    while (cek != nullptr) {
+        if (cek->info == pBaru) {
+            cout << "GAGAL: Jurnalis sudah memiliki relasi ke berita '"
+                 << pBaru->info.judulBerita << "'." << endl;
+            return;
+        }
+        cek = cek->next;
+    }
+    adrRelasi r = pJ->Berita.first;
+    while (r != nullptr) {
+        if (r->info == pLama) {
+            r->info = pBaru;
 
-void editRelasiBerita(adrJurnalis p, adrBerita lama, adrBerita baru){
-    adrRelasi r = p->Berita.first;
-
-    while (r != nullptr){
-        if (r->info == lama){
-
-            // kondisi judul sama
-            if (baru->info.judulBerita == lama->info.judulBerita){
-                cout << "judul baru == judul lama" << endl;
-                return;
-            }
-
-            // ganti relasi jika judul berbeda
-            r->info = baru;
             cout << "Relasi berhasil diperbarui." << endl;
+            cout << "Berita '" << pLama->info.judulBerita
+                 << "' diganti menjadi '" << pBaru->info.judulBerita << "'." << endl;
             return;
         }
         r = r->next;
     }
-
-    cout << "Relasi tidak ditemukan." << endl;
+    cout << "Relasi lama tidak ditemukan pada Jurnalis ini." << endl;
 }
 
 

@@ -11,7 +11,6 @@ using namespace std;
 struct Jurnalis {
     string idJurnalis;
     string nama;
-    string bidang;
     string status;
 };
 
@@ -70,7 +69,7 @@ void disconnectJurnalisBerita(ListJurnalis &J, ListBerita B, string namaJurnalis
 
 //untuk study case sendiri//
 void deleteJurnalisLengkap(ListJurnalis &J, string nama);
-void deleteBeritaAman(ListBerita &B, ListJurnalis &J, string judul);
+void deleteBeritaRelasi(ListBerita &B, ListJurnalis &J, string judul);
 
 
 
@@ -87,6 +86,8 @@ void deleteFirstJurnalis(ListJurnalis &J, adrJurnalis &p);
 void deleteLastJurnalis(ListJurnalis &J, adrJurnalis &p);
 void deleteAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis &p);
 adrJurnalis findJurnalisByid(ListJurnalis J, string idJurnalis);
+adrJurnalis findJurnalisByStatus(ListJurnalis J, string status);
+adrJurnalis findJurnalisByName(ListJurnalis J, string name);
 void showAllJurnalis(ListJurnalis J);
 
 adrJurnalis findJurnalisByName(ListJurnalis J, string name);

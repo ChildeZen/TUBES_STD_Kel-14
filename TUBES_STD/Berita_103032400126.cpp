@@ -3,14 +3,11 @@
 
 
 void createListBerita(ListBerita &B){
-//I.S -
-//F.S B.first diset NIL//
     B.first = nullptr;
 
 }
 
 adrBerita allocateBerita(infotypeBerita x){
-// mengembalikan elemen list baru dengan info = x, next elemen = null//
     adrBerita p = new elmBerita;
     p->info = x;
     p->next = nullptr;
@@ -19,15 +16,11 @@ adrBerita allocateBerita(infotypeBerita x){
 
 
 void insertFirstBerita(ListBerita &B, adrBerita b){
-//I.S SLL yang mungkin kosong
-// F.S element list b ditambahkan sebagai element list b pertma dalam list
     b->next = B.first;
     B.first = b;
 }
 
 void insertLastBerita(ListBerita &B, adrBerita b){
-// I.S list B yang mungkin kosong dari elementlist b//
-// F.S element list b ditambahkan sebagai elemn yerkhir dari SLL//
     adrBerita Q;
 
     if(B.first == nullptr) {
@@ -42,8 +35,6 @@ void insertLastBerita(ListBerita &B, adrBerita b){
 }
 
 void deleteFirstBerita(ListBerita &B, adrBerita &b){
-//I.S
-//F.S
     if (B.first == nullptr){
         b = nullptr;
     } else if (B.first->next== nullptr) {
@@ -68,7 +59,7 @@ adrBerita findBerita(ListBerita B, string judulBerita){
 }
 
 void showAllBerita(ListBerita B){
-// menampilkan seluruh data yang ada pada list berita//
+// menampilkan seluruh data yang ada pada list berita :)  //
     adrBerita Q;
 
 

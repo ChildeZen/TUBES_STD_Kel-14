@@ -10,6 +10,7 @@ void menuAdmin(ListJurnalis &LJ, ListBerita &LB);
 void menuUser(ListJurnalis &LJ, ListBerita &LB);
 void menuParent();
 void menuChild();
+void menuRelation();
 
 
 

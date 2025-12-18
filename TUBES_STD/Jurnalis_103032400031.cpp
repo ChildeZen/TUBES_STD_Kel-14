@@ -9,11 +9,11 @@ adrJurnalis allocateJurnalis(infotypeJurnalis x) {
     adrJurnalis P = new elmJurnalis;
     P->info.nama = x.nama;
     P->info.idJurnalis = x.idJurnalis;
-    P->info.bidang = x.bidang;
     P->info.status = x.status;
     P->next = nullptr;
     P->prev = nullptr;
 
+    createList(P->Berita);
     return P;
 }
 
@@ -40,24 +40,23 @@ void insertLastJurnalis(ListJurnalis &J, adrJurnalis p) {
 }
 
 void deleteAfterJurnalis(ListJurnalis &J, adrJurnalis prec, adrJurnalis &p) {
-    if (J.first == nullptr ) {
-        cout << "List kosong" << endl;
-    } else if (J.last == J.first) {
-        p = J.first;
-        J.first = nullptr;
-        J.last = nullptr;
-    } else {
+    if (prec != nullptr && prec -> next != nullptr){
+
         p = prec->next;
-        prec->next = p->next;
-        if (p->next != nullptr) {
-            p->next->prev = prec;
-        } else {
-            J.last = prec;
+        if (p == J.last)
+        {
+            deleteLastJurnalis(J, p);
         }
-        p->prev = nullptr;
-        p->next = nullptr;
+        else
+        {
+            prec->next = p->next;
+            p->next->prev = prec;
+            p->next = nullptr;
+            p->prev = nullptr;
+        }
     }
 }
+
 
 adrJurnalis findJurnalisByid(ListJurnalis J, string idJurnalis) {
     adrJurnalis x = J.first;
@@ -74,17 +73,6 @@ adrJurnalis findJurnalisByName(ListJurnalis J, string name) {
     adrJurnalis x = J.first;
     while (x != nullptr) {
         if (x->info.nama == name) {
-            return x;
-        }
-        x = x->next;
-    }
-    return nullptr;
-}
-
-adrJurnalis findJurnalisByBidang(ListJurnalis J, string bidang) {
-    adrJurnalis x = J.first;
-    while (x != nullptr) {
-        if (x->info.bidang == bidang) {
             return x;
         }
         x = x->next;
@@ -118,7 +106,6 @@ void showAllJurnalis(ListJurnalis J) {
         cout << "Jurnalis ke-" << nomor << endl;
         cout << "ID Jurnalis : " << p->info.idJurnalis << endl;
         cout << "Nama        : " << p->info.nama << endl;
-        cout << "Bidang      : " << p->info.bidang << endl;
         cout << "Status      : " << p->info.status << endl;
         cout << "-------------------------------------" << endl;
 

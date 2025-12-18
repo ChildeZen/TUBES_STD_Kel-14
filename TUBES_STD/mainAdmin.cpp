@@ -1,257 +1,357 @@
-#include "main.h"
 #include "Jurnalis.h"
 #include "Berita.h"
 #include <iostream>
-#include <string> // Tambahin ini buat keamanan string
+#include <string>
 
 using namespace std;
 
-void menuParent(ListJurnalis &LJ);
+// Prototype
+void menuParent(ListJurnalis &LJ, ListBerita &LB);
 void menuChild(ListBerita &LB);
+void menuRelation(ListJurnalis &LJ, ListBerita &LB);
 
 void menuAdmin(ListJurnalis &LJ, ListBerita &LB) {
     int option = -99;
     while (option != 0) {
         system("cls");
-        cout << "============ MENU ADMIN ============\n";
-        cout << "|| 1. Kelola Jurnalis (Parent)    ||\n";
-        cout << "|| 2. Kelola Berita (Child)       ||\n";
-        cout << "|| 0. Kembali                     ||\n";
-        cout << "====================================\n";
-        cout << "Choose your option: ";
-        if (!(cin >> option)) break; // Cek input valid
+        cout << "============ MENU ADMIN ============" << endl;
+        cout << "|| 1. Kelola Jurnalis (Parent)    ||" << endl;
+        cout << "|| 2. Kelola Berita (Child)       ||" << endl;
+        cout << "|| 3. Kelola Relasi               ||" << endl;
+        cout << "|| 0. Keluar                      ||" << endl;
+        cout << "====================================" << endl;
+        cout << "Pilih opsi: ";
+        if (!(cin >> option)) break;
 
         switch (option) {
-            case 1: menuParent(LJ); break;
-            case 2: menuChild(LB); break;
+            case 1:
+                menuParent(LJ, LB);
+                break;
+            case 2:
+                menuChild(LB);
+                break;
+            case 3:
+                menuRelation(LJ, LB);
+                break;
         }
     }
 }
 
-void menuParent(ListJurnalis &LJ) {
+void menuParent(ListJurnalis &LJ, ListBerita &LB) {
     int option = -99;
     infotypeJurnalis J;
     adrJurnalis P, prec;
-    string id;
+    string cariID, cariNama, judulBerita, id;
+    int x;
 
     while (option != 0) {
         system("cls");
-        cout << "========== MENU JURNALIS ==========\n";
-        cout << "|| 1. Insert First               ||\n";
-        cout << "|| 2. Insert Last                ||\n";
-        cout << "|| 3. Insert After               ||\n";
-        cout << "|| 4. Delete First               ||\n";
-        cout << "|| 5. Delete Last                ||\n";
-        cout << "|| 6. Delete After               ||\n";
-        cout << "|| 7. Find Jurnalis              ||\n";
-        cout << "|| 8. Show All Jurnalis          ||\n";
-        cout << "|| 0. Back                       ||\n";
-        cout << "===================================\n";
-        cout << "Choose your option: ";
+        cout << "========== MENU JURNALIS ==========" << endl;
+        cout << "|| 1. Insert First               ||" << endl;
+        cout << "|| 2. Insert Last                ||" << endl;
+        cout << "|| 3. Insert After               ||" << endl;
+        cout << "|| 4. Delete First               ||" << endl;
+        cout << "|| 5. Delete Last                ||" << endl;
+        cout << "|| 6. Delete After               ||" << endl;
+        cout << "|| 7. Cari Jurnalis              ||" << endl;
+        cout << "|| 8. Show All Jurnalis          ||" << endl;
+        cout << "|| 0. Kembali                    ||" << endl;
+        cout << "===================================" << endl;
+        cout << "Pilih opsi: ";
         cin >> option;
 
         switch (option) {
-        case 1: { // Tambahkan kurung kurawal untuk scope variabel
-            cout << "ID      : "; cin >> J.idJurnalis;
-            cout << "Nama    : "; cin >> ws; getline(cin, J.nama);
-            cout << "Bidang  : "; getline(cin, J.bidang);
-            cout << "Status  : "; cin >> J.status;
+            case 1:
+                cout << "=== INSERT FIRST JURNALIS ===" << endl;
+                cout << "ID Jurnalis : "; cin >> J.idJurnalis;
+                cout << "Nama        : "; cin >>  J.nama;
+                cout << "Status      : "; cin >> J.status;
 
-            bool namaDipakai = false;
-            adrJurnalis Q = LJ.first;
-            while (Q != nullptr){
-                if (Q->info.nama == J.nama){
-                    namaDipakai = true;
-                    break;
+                if (findJurnalisByName(LJ, J.nama) != NULL) {
+                    cout << "Nama sudah ada!" << endl;
+                } else {
+                    P = allocateJurnalis(J);
+                    insertFirstJurnalis(LJ, P);
+                    cout << "Jurnalis berhasil ditambahkan!" << endl;
+
+                    cout << "\nHubungkan Jurnalis ini ke Berita yang sudah ada?" << endl;
+                    cout << "1. Ya\n2. Tidak\nPilih: ";
+                    cin >> x;
+                    if (x == 1) {
+                        cout << "Masukkan Judul Berita yang dituju: ";
+                        cin >>  judulBerita;
+                        connectJurnalisBerita(LJ, LB, J.nama, judulBerita);
+                    }
                 }
-                Q = Q->next;
-            }
+                system("pause");
+                break;
 
-            if (namaDipakai){
-                cout << "Nama sudah digunakan!" << endl;
-            } else {
-                P = allocateJurnalis(J);
-                insertFirstJurnalis(LJ, P);
-                cout << "Jurnalis berhasil ditambahkan (First)." << endl;
-            }
-            system("pause");
-            break;
-        }
-        case 2:
-            cout << "ID      : "; cin >> J.idJurnalis;
-            cout << "Nama    : "; cin >> ws; getline(cin, J.nama);
-            cout << "Bidang  : "; getline(cin, J.bidang);
-            cout << "Status  : "; cin >> J.status;
+            case 2:
+                cout << "=== INSERT LAST JURNALIS ===" << endl;
+                cout << "ID Jurnalis : "; cin >> J.idJurnalis;
+                cout << "Nama        : "; cin >>  J.nama;
+                cout << "Status      : "; cin >> J.status;
 
-            P = allocateJurnalis(J);
-            insertLastJurnalis(LJ, P);
-            cout << "Jurnalis berhasil ditambahkan (Last)." << endl;
-            system("pause");
-            break;
+                if (findJurnalisByName(LJ, J.nama) != NULL) {
+                    cout << "Nama sudah ada!" << endl;
+                } else {
+                    P = allocateJurnalis(J);
+                    insertLastJurnalis(LJ, P);
+                    cout << "Jurnalis berhasil ditambahkan!" << endl;
 
-        case 3:
-            cout << "Masukkan ID Jurnalis sebelumnya: "; cin >> id;
-            prec = findJurnalisByid(LJ, id);
-            if (prec != nullptr) {
-                cout << "ID      : "; cin >> J.idJurnalis;
-                cout << "Nama    : "; cin >> ws; getline(cin, J.nama);
-                cout << "Bidang  : "; getline(cin, J.bidang);
-                cout << "Status  : "; cin >> J.status;
+                    cout << "\nHubungkan Jurnalis ini ke Berita yang sudah ada?" << endl;
+                    cout << "1. Ya\n2. Tidak\nPilih: ";
+                    cin >> x;
+                    if (x == 1) {
+                        cout << "Masukkan Judul Berita yang dituju: ";
+                        cin >> judulBerita;
+                        connectJurnalisBerita(LJ, LB, J.nama, judulBerita);
+                    }
+                }
+                system("pause");
+                break;
 
-                P = allocateJurnalis(J);
-                insertAfterJurnalis(LJ, prec, P);
-                cout << "Jurnalis berhasil ditambahkan." << endl;
-            } else {
-                cout << "Jurnalis pencari tidak ditemukan\n";
-            }
-            system("pause");
-            break;
+            case 3:
+                cout << "=== INSERT AFTER JURNALIS ===" << endl;
+                cout << "Masukkan Nama Jurnalis sebelumnya (Prec): ";
+                cin >> cariNama;
+                prec = findJurnalisByName(LJ, cariNama);
 
-        case 4:
-            deleteFirstJurnalis(LJ, P);
-            if (P != nullptr) {
-                cout << "Jurnalis " << P->info.nama << " berhasil dihapus." << endl;
-                delete P;
-            }
-            system("pause");
-            break;
+                if (prec == NULL) {
+                    cout << "Jurnalis referensi tidak ditemukan!" << endl;
+                } else {
+                    cout << "ID Jurnalis : "; cin >> J.idJurnalis;
+                    cout << "Nama        : "; cin >>  J.nama;
+                    cout << "Status      : "; cin >> J.status;
 
-        case 5:
-            deleteLastJurnalis(LJ, P);
-            if (P != nullptr) {
-                cout << "Jurnalis " << P->info.nama << " berhasil dihapus." << endl;
-                delete P;
-            }
-            system("pause");
-            break;
+                    P = allocateJurnalis(J);
+                    insertAfterJurnalis(LJ, prec, P);
+                    cout << "Jurnalis berhasil ditambahkan!" << endl;
 
-        case 6:
-            cout << "Masukkan ID Jurnalis sebelumnya: "; cin >> id;
-            prec = findJurnalisByid(LJ, id);
-            if (prec != nullptr) {
-                deleteAfterJurnalis(LJ, prec, P);
+                    cout << "\nHubungkan Jurnalis ini ke Berita yang sudah ada?" << endl;
+                    cout << "1. Ya\n2. Tidak\nPilih: ";
+                    cin >> x;
+                    if (x == 1) {
+                        cout << "Masukkan Judul Berita yang dituju: ";
+                        cin >> judulBerita;
+                        connectJurnalisBerita(LJ, LB, J.nama, judulBerita);
+                    }
+                }
+                system("pause");
+                break;
+
+            case 4:
+                deleteFirstJurnalis(LJ, P);
+                if (P) cout << "Jurnalis " << P->info.nama << " dihapus." << endl;
+                else cout << "List Kosong" << endl;
+                system("pause");
+                break;
+
+            case 5:
+                deleteLastJurnalis(LJ, P);
+                if (P) cout << "Jurnalis " << P->info.nama << " dihapus." << endl;
+                else cout << "List Kosong" << endl;
+                system("pause");
+                break;
+
+            case 6:
+                cout << "Hapus setelah Jurnalis nama apa? ";
+                cin >> cariNama;
+                prec = findJurnalisByName(LJ, cariNama);
+                if (prec) {
+                    deleteAfterJurnalis(LJ, prec, P);
+                    if (P) cout << "Jurnalis " << P->info.nama << " dihapus." << endl;
+                } else cout << "Jurnalis tidak ditemukan." << endl;
+                system("pause");
+                break;
+
+            case 7:
+                int subOption;
+                system("cls");
+                cout << "====== CARI JURNALIS ======\n";
+                cout << "1. Berdasarkan ID\n";
+                cout << "2. Berdasarkan Nama\n";
+                cout << "3. Berdasarkan Status\n";
+                cout << "Choose search criteria: ";
+                cin >> subOption;
+
+                P = nullptr;
+                if (subOption == 1) {
+                    cout << "Cari ID: "; cin >> id;
+                    P = findJurnalisByid(LJ, id);
+                } else if (subOption == 2) {
+                    string nama;
+                    cout << "Cari Nama: "; cin >> nama;
+                    P = findJurnalisByName(LJ, nama);
+                } else if (subOption == 3) {
+                    string status;
+                    cout << "Cari Status: "; cin >> status;
+                    P = findJurnalisByStatus(LJ, status);
+                }
+
                 if (P != nullptr) {
-                    cout << "Jurnalis " << P->info.nama << " berhasil dihapus." << endl;
-                    delete P;
+                    cout << "\n--- Data Ditemukan ---\n";
+                    cout << "ID     : " << P->info.idJurnalis << endl;
+                    cout << "Nama   : " << P->info.nama << endl;
+                    cout << "Status : " << P->info.status << endl;
+                } else {
+                    cout << "\nData Jurnalis tidak ditemukan.\n";
                 }
-            } else {
-                cout << "ID tidak ditemukan." << endl;
-            }
-            system("pause");
-            break;
+                system("pause");
+                break;
 
-        case 7:
-            cout << "Cari ID Jurnalis: "; cin >> id;
-            P = findJurnalisByid(LJ, id);
-            if (P != nullptr)
-                cout << "Ditemukan: " << P->info.nama << " (Bidang: " << P->info.bidang << ")" << endl;
-            else
-                cout << "Tidak ditemukan\n";
-            system("pause");
-            break;
-
-        case 8:
-            showAllJurnalis(LJ);
-            system("pause");
-            break;
+            case 8:
+                showAllJurnalis(LJ);
+                system("pause");
+                break;
         }
     }
 }
 
-// Lakukan hal yang sama untuk menuChild (tambahkan scope { } dan system pause)
 void menuChild(ListBerita &LB) {
     int option = -99;
     infotypeBerita B;
     adrBerita P, prec;
-    string judul;
+    string cariJudul;
 
     while (option != 0) {
         system("cls");
-        cout << "=========== MENU BERITA ===========\n";
-        cout << "|| 1. Insert First               ||\n";
-        cout << "|| 2. Insert Last                ||\n";
-        cout << "|| 3. Insert After               ||\n";
-        cout << "|| 4. Delete First               ||\n";
-        cout << "|| 5. Delete Last                ||\n";
-        cout << "|| 6. Delete After               ||\n";
-        cout << "|| 7. Find Berita                ||\n";
-        cout << "|| 8. Show All Berita            ||\n";
-        cout << "|| 0. Back                       ||\n";
-        cout << "===================================\n";
-        cout << "Choose your option: ";
+        cout << "=========== MENU BERITA ============" << endl;
+        cout << "|| 1. Insert First                ||" << endl;
+        cout << "|| 2. Insert Last                 ||" << endl;
+        cout << "|| 3. Insert After                ||" << endl;
+        cout << "|| 4. Delete First                ||" << endl;
+        cout << "|| 5. Delete Last                 ||" << endl;
+        cout << "|| 6. Delete After                ||" << endl;
+        cout << "|| 7. Find Berita                 ||" << endl;
+        cout << "|| 8. Show All Berita             ||" << endl;
+        cout << "|| 0. Kembali                     ||" << endl;
+        cout << "====================================" << endl;
+        cout << "Pilih opsi: ";
+        cin >> option;
+
+        switch(option) {
+            case 1:
+                cout << "Judul  : "; cin >> B.judulBerita;
+                cout << "Tema   : "; cin >>  B.temaBerita;
+                cout << "Tanggal: "; cin >> B.tanggal;
+                P = allocateBerita(B);
+                insertFirstBerita(LB, P);
+                cout << "Berita ditambahkan." << endl;
+                system("pause");
+                break;
+            case 2:
+                cout << "Judul  : "; cin >>  B.judulBerita;
+                cout << "Tema   : "; cin >> B.temaBerita;
+                cout << "Tanggal: "; cin >> B.tanggal;
+                P = allocateBerita(B);
+                insertLastBerita(LB, P);
+                cout << "Berita ditambahkan." << endl;
+                system("pause");
+                break;
+            case 3 :
+                cout << "Masukkan JUDUL BERITA sebelumnya: ";
+                cin >> cariJudul;
+
+                prec = findBerita(LB, cariJudul);
+                if (prec != nullptr) {
+                    cout << "Judul Baru : "; cin >> B.judulBerita;
+                    cout << "Tema       : "; cin >> B.temaBerita;
+                    cout << "Tanggal    : "; cin >> B.tanggal;
+
+                    P = allocateBerita(B);
+                    insertAfterBerita(LB, prec, P);
+                    cout << "Berita berhasil ditambahkan." << endl;
+                } else {
+                    cout << "Berita referensi tidak ditemukan\n";
+                }
+                system("pause");
+                break;
+            case 4:
+                deleteFirstBerita(LB, P);
+                if(P) cout << "Berita dihapus." << endl;
+                else cout << "List Kosong." << endl;
+                system("pause");
+                break;
+            case 5:
+                deleteLastBerita(LB, P);
+                if (P) cout << "Berita dihapus." << endl;
+                else cout << "List kosong." << endl;
+                system("pause");
+                break;
+            case 6:
+                cout << "Hapus setelah Judul apa? ";
+                cin >>  cariJudul;
+                prec = findBerita(LB, cariJudul);
+                if (prec != nullptr) {
+                    deleteAfterBerita(LB, prec, P);
+                    if (P != nullptr) {
+                        cout << "Berita " << P->info.judulBerita << " dihapus.\n";
+                        delete P;
+                    }
+                } else {
+                    cout << "Berita tidak ditemukan." << endl;
+                }
+                system("pause");
+                break;
+            case 7 :
+                cout << "Cari Judul Berita: ";
+                cin >> cariJudul;
+                P = findBerita(LB, cariJudul);
+                if (P != nullptr) cout << "Berita ditemukan: " << P->info.judulBerita << " | " << P->info.temaBerita << endl;
+                else cout << "Berita tidak ditemukan\n";
+                system("pause");
+                break;
+            case 8 :
+                showAllBerita(LB);
+                system("pause");
+                break;
+        }
+    }
+}
+
+void menuRelation(ListJurnalis &LJ, ListBerita &LB) {
+    int option = -99;
+    string namaJurnalis, judulBerita;
+
+    while (option != 0) {
+        system("cls");
+        cout << "=========== MENU RELASI ============" << endl;
+        cout << "|| 1. Hubungkan (Connect)         ||" << endl;
+        cout << "|| 2. Putuskan (Disconnect)       ||" << endl;
+        cout << "|| 3. Show All Parents + Child    ||" << endl;
+        cout << "|| 0. Kembali                     ||" << endl;
+        cout << "====================================" << endl;
+        cout << "Pilih opsi: ";
         cin >> option;
 
         switch (option) {
-        case 1:
-            cout << "Judul   : "; cin >> ws; getline(cin, B.judulBerita);
-            cout << "Tema    : "; getline(cin, B.temaBerita);
-            cout << "Tanggal : "; cin >> B.tanggal;
-            P = allocateBerita(B);
-            insertFirstBerita(LB, P);
-            cout << "Berita ditambahkan.\n";
-            system("pause");
-            break;
+            case 1:
+                cout << "=== CONNECT ===" << endl;
+                showAllJurnalis(LJ);
+                cout << "\nNama Jurnalis: "; cin >> namaJurnalis;
 
-        case 2:
-            cout << "Judul   : "; cin >> ws; getline(cin, B.judulBerita);
-            cout << "Tema    : "; getline(cin, B.temaBerita);
-            cout << "Tanggal : "; cin >> B.tanggal;
-            P = allocateBerita(B);
-            insertLastBerita(LB, P);
-            cout << "Berita ditambahkan.\n";
-            system("pause");
-            break;
+                showAllBerita(LB);
+                cout << "Judul Berita : "; cin >> judulBerita;
 
-        case 3: {
-            cout << "Judul sebelumnya: "; cin >> ws; getline(cin, judul);
-            prec = findBerita(LB, judul);
-            if (prec != nullptr) {
-                cout << "Judul Baru: "; getline(cin, B.judulBerita);
-                cout << "Tema      : "; getline(cin, B.temaBerita);
-                cout << "Tanggal   : "; cin >> B.tanggal;
-                P = allocateBerita(B);
-                insertAfterBerita(LB, prec, P);
-            } else {
-                cout << "Judul referensi tidak ditemukan.\n";
-            }
-            system("pause");
-            break;
-        }
-        case 4:
-            deleteFirstBerita(LB, P);
-            if (P != nullptr) { cout << "Berita dihapus.\n"; delete P; }
-            system("pause");
-            break;
+                connectJurnalisBerita(LJ, LB, namaJurnalis, judulBerita);
+                system("pause");
+                break;
 
-        case 5:
-            deleteLastBerita(LB, P);
-            if (P != nullptr) { cout << "Berita dihapus.\n"; delete P; }
-            system("pause");
-            break;
+            case 2:
+                cout << "=== DISCONNECT ===" << endl;
+                cout << "Nama Jurnalis: "; cin >> namaJurnalis;
+                cout << "Judul Berita : "; cin >> judulBerita;
 
-        case 6: {
-            cout << "Judul sebelumnya: "; cin >> ws; getline(cin, judul);
-            prec = findBerita(LB, judul);
-            if (prec != nullptr) {
-                deleteAfterBerita(LB, prec, P);
-                if (P != nullptr) delete P;
-                cout << "Berita berhasil dihapus.\n";
-            }
-            system("pause");
-            break;
-        }
-        case 7:
-            cout << "Judul Berita: "; cin >> ws; getline(cin, judul);
-            P = findBerita(LB, judul);
-            if (P != nullptr) cout << "Berita ditemukan: " << P->info.judulBerita << endl;
-            else cout << "Berita tidak ditemukan\n";
-            system("pause");
-            break;
+                disconnectJurnalisBerita(LJ, LB, namaJurnalis, judulBerita);
+                system("pause");
+                break;
 
-        case 8:
-            showAllBerita(LB);
-            system("pause");
-            break;
+            case 3:
+                cout << "=== SHOW ALL PARENTS & CHILDREN ===" << endl;
+                printAllBeritaWithJurnalis(LB, LJ);
+                system("pause");
+                break;
         }
     }
 }

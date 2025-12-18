@@ -30,6 +30,8 @@ void dealokasi(adrRelasi &R){
     R = nullptr;
 }
 
+
+//sudah//
 void connectJurnalisBerita(ListJurnalis &J, ListBerita B, string namaJurnalis, string judulBerita) {
     adrJurnalis P = findJurnalisByName(J, namaJurnalis);
     adrBerita Q = findBerita(B, judulBerita);
@@ -37,7 +39,7 @@ void connectJurnalisBerita(ListJurnalis &J, ListBerita B, string namaJurnalis, s
     if (P != nullptr && Q != nullptr) {
         if (findElmRelasi(P, Q) == nullptr) {
             adrRelasi R = alokasi(Q);
-            insertFirst(P->Berita, R);
+            insertLast(P->Berita, R);
             cout << "Berhasil menghubungkan!" << endl;
         } else {
             cout << "Relasi sudah ada!" << endl;
@@ -47,13 +49,14 @@ void connectJurnalisBerita(ListJurnalis &J, ListBerita B, string namaJurnalis, s
     }
 }
 
+//sudah//
 //Show data child dari parent tertentu//
 void showBeritaByJurnalis(ListJurnalis J, string namaJurnalis){
     adrJurnalis P = findJurnalisByName(J, namaJurnalis);
     if(P == nullptr){
         cout << "Jurnalis dengan nama " << namaJurnalis << "tidak ditemukan " << endl;
     } else {
-        cout << "Daftar Berita Oleh" << P->info.nama << ":" << endl;
+        cout << "Daftar Berita Oleh " << P->info.nama << ":" << endl;
         adrRelasi R;
         R = P->Berita.first;
 
@@ -72,7 +75,7 @@ void showBeritaByJurnalis(ListJurnalis J, string namaJurnalis){
 }
 
 
-
+//sudah//
 //Show data child beserta data parent yang masing-masing child miliki//
 void printAllBeritaWithJurnalis(ListBerita LB, ListJurnalis LJ){
    adrBerita B = LB.first;
@@ -90,7 +93,7 @@ void printAllBeritaWithJurnalis(ListBerita LB, ListJurnalis LJ){
         while(P!=nullptr) {
             adrRelasi R = findElmRelasi(P, B );
             if (R!= nullptr){
-                cout << P->info.nama << "; ";
+                cout << P->info.nama << ", ";
                 adaPenulis = true;
             }
             P = P->next;
@@ -105,6 +108,7 @@ void printAllBeritaWithJurnalis(ListBerita LB, ListJurnalis LJ){
    cout << "\n=========================================" << endl;
 }
 
+//sudah//
 //Count relation dari setiap element parent//
 void countRelasiJurnalis(ListJurnalis J){
     adrJurnalis P = J.first;
@@ -116,11 +120,13 @@ void countRelasiJurnalis(ListJurnalis J){
             count++;
             R = R->next;
         }
-        cout << "Jurnalis: " << P->info.nama << " | Jumlah Berita: " << count << endl;
+        cout << "Jurnalis: " << P->info.nama << endl;
+        cout << "Jumlah Berita: " << count << endl;
         P = P->next;
+        cout << endl;
     }
 }
-
+//sudah//
 //count berita tanpa relasi dengan jurnalis//
 int countBeritaTanpaJurnalis(ListBerita B, ListJurnalis J){
     int count = 0;
@@ -145,66 +151,57 @@ int countBeritaTanpaJurnalis(ListBerita B, ListJurnalis J){
     return count;
 }
 
-
+//sudah//
 void disconnectJurnalisBerita(ListJurnalis &J, ListBerita B, string namaJurnalis, string judulBerita){
     adrJurnalis P = findJurnalisByName(J, namaJurnalis);
     adrBerita targetBerita = findBerita(B, judulBerita);
+
     if (P == nullptr) {
         cout << "Jurnalis tidak ditemukan!" << endl;
-        return;
-    }
-    if (targetBerita == nullptr) {
+    } else if (targetBerita == nullptr){
         cout << "Berita tidak ditemukan!" << endl;
-        return;
-    }
-    adrRelasi R = findElmRelasi(P, targetBerita);
-
-    if (R == nullptr) {
-        cout << "Jurnalis " << namaJurnalis << " tidak menulis berita tersebut." << endl;
-        return;
-    }
-
-    if (P->Berita.first == R) {
-
-        deleteFirst(P->Berita, R);
     } else {
-        adrRelasi Prec = P->Berita.first;
-        while (Prec->next != R) {
-            Prec = Prec->next;
-        }
-        deleteAfter(Prec, R);
-    }
+        adrRelasi R = findElmRelasi(P, targetBerita);
+        if (R == nullptr) {
+        cout << "Jurnalis " << namaJurnalis << " tidak menulis berita tersebut." << endl;
 
-    // Jangan lupa dealokasi memori relasi
-    dealokasi(R);
-    cout << "Relasi berhasil dihapus." << endl;
+        } else {
+            if (P->Berita.first == R) {
+                deleteFirst(P->Berita, R);
+            } else {
+                adrRelasi Prec = P->Berita.first;
+                while (Prec->next != R) {
+                    Prec = Prec->next;
+                }
+                deleteAfter(Prec, R);
+            }
+            dealokasi(R);
+            cout << "Relasi berhasil dihapus." << endl;
+        }
+    }
 }
 
-//kodingan untuk kasus yang mikir sendiri//
 
-void deleteBeritaAman(ListBerita &B, ListJurnalis &J, string judul) {
-    // 1. Cari dulu beritanya ada atau tidak
+
+//sudah//
+void deleteBeritaRelasi(ListBerita &B, ListJurnalis &J, string judul) {
+
     adrBerita target = findBerita(B, judul);
 
     if (target != nullptr) {
-        // === LANGKAH 1: HAPUS RELASI (Pakai Prosedur yang Sudah Ada) ===
-        // Kita loop semua jurnalis, lalu panggil 'disconnect' untuk memutus hubungan
         adrJurnalis P = J.first;
         while (P != nullptr) {
-            // Fungsi ini sudah otomatis mengecek: kalau ada relasi -> hapus (pakai deleteFirst/After)
-            // Kalau tidak ada relasi -> dia diam saja. Jadi aman dipanggil berulang-ulang.
             disconnectJurnalisBerita(J, B, P->info.nama, judul);
             P = P->next;
         }
 
-        // === LANGKAH 2: HAPUS DATA BERITA (Pakai Prosedur yang Sudah Ada) ===
         adrBerita hapus;
         if (B.first == target) {
             deleteFirstBerita(B, hapus);
-        } else if (target->next == nullptr) { // Artinya dia elemen terakhir
+        } else if (target->next == nullptr) {
             deleteLastBerita(B, hapus);
         } else {
-            // Cari elemen sebelum target (prec) untuk deleteAfter
+
             adrBerita prec = B.first;
             while (prec->next != target) {
                 prec = prec->next;
@@ -212,8 +209,8 @@ void deleteBeritaAman(ListBerita &B, ListJurnalis &J, string judul) {
             deleteAfterBerita(B, prec, hapus);
         }
 
-        // Dealokasi memori agar bersih sepenuhnya
-        delete hapus; // atau dealokasiBerita(hapus) jika ada
+
+        delete hapus;
         cout << "Berita berhasil dihapus." << endl;
 
     } else {
@@ -222,33 +219,27 @@ void deleteBeritaAman(ListBerita &B, ListJurnalis &J, string judul) {
 }
 
 void deleteJurnalisLengkap(ListJurnalis &J, string nama) {
-    // 1. Cari Jurnalisnya
+
     adrJurnalis P = findJurnalisByName(J, nama);
 
     if (P != nullptr) {
-        // 2. BERSIHKAN RELASINYA DULU (Penting!)
-        // Kita hapus semua node relasi yang menempel di Jurnalis P
         adrRelasi R = P->Berita.first;
         while (R != nullptr) {
             adrRelasi hapus = R;
             R = R->next;
-            delete hapus; // Dealokasi node relasi
+            delete hapus;
         }
-        P->Berita.first = nullptr; // Pastikan pointer jadi null
-
-        // 3. BARU HAPUS JURNALISNYA DARI LIST
+        P->Berita.first = nullptr;
         adrJurnalis hapusJ;
         if (J.first == P) {
             deleteFirstJurnalis(J, hapusJ);
-        } else if (P == J.last) { // Jika elemen terakhir
+        } else if (P == J.last) {
             deleteLastJurnalis(J, hapusJ);
         } else {
-            // Logika deleteAfter (butuh prec)
             adrJurnalis prec = P->prev;
             deleteAfterJurnalis(J, prec, hapusJ);
         }
 
-        // 4. Dealokasi memori Jurnalis
         delete hapusJ;
         cout << "Jurnalis " << nama << " dan semua relasinya berhasil dihapus." << endl;
 
